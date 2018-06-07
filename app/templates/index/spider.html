@@ -1,0 +1,264 @@
+{% extends "base.html" %}
+{% block title %}Amazon | spider{% endblock %}
+
+{% block styles %}
+    {{ super() }}
+    <style>
+    a{
+        color:#0366d6;
+        text-decoration:none ;
+        background-color: transparent;
+        display: inline-block;
+
+    }
+
+    a:active,a:hover{
+        cursor: pointer;
+        outline-width: 0;
+    }
+
+    .reviews a,.qa a{
+        margin-left: 25px;
+    }
+
+    .commodity-form{
+      padding-top:50px;
+      padding-left:280px;
+      margin:0 auto;
+      width:100%;
+    }
+
+    input:focus {
+      outline: 1px solid #337ab7 !important;
+    }
+
+   input[type="text"], .text-input{
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: #f2f2f2;
+    border-image: none;
+    border-style: solid none none;
+    border-width: 1px medium medium;
+    margin: 1px;
+    outline: 1px solid #ccc;
+    padding: 4px 5px;
+    vertical-align: middle;
+    width: 578px;
+    height:35px;
+    border-radius:5px;
+   }
+
+   .btn{
+        -moz-appearance: none;
+        -moz-user-select: none;
+        background-position:-1px -1px ;
+        background-repeat: no-repeat;
+        background-size: 110% 110%;
+        border: 1px solid rgba(27,31,35,0.2);
+        border-radius: 0.25em;
+        cursor: pointer;
+        display: inline-block;
+        font-size: 14px;
+        font-weight: 100;
+        line-height: 20px;
+        padding: 6px 12px;
+        position: relative;
+        vertical-align: middle;
+        white-space: nowrap;
+   }
+
+   .btn-block{
+    {#    display: block;#}
+        text-align: center;
+        width: 10%;
+   }
+
+   .btn-primary{
+       background-color: #3c8dbc;
+       background-image: linear-gradient( -180deg,#3c8dbc 0%,#337ab7 90%);
+       color: #fff;
+       margin-left: 20px;
+       width: 80px;
+   }
+   p{
+      text-indent:35px;
+   }
+
+   .productname,.description,.reviews,.qa {
+       margin-top:25px;
+       margin-left:220px;
+       width:800px;
+       text-align:justify;
+   }
+
+{#   #js-flash-container{#}
+{#       margin:0 auto;#}
+{#       width:400px;#}
+{#       margin-bottom: 20px;#}
+{#   }#}
+
+    .flash {
+        border-style: solid;
+        border-width: 1px;
+        font-size: 13px;
+{#        margin: 0 auto 10px;#}
+        padding: 10px 20px;
+        height: 40px;
+        width: 100%;
+    }
+
+    .container {
+        margin: 0 auto;
+{#        margin-right: auto;#}
+        width: 500px;
+        text-align: center;
+    }
+
+
+
+{#    .flash .container {#}
+{#        width: auto;#}
+{#    }#}
+{##}
+{#    .flash .flash-close {#}
+{#        height: 20px;#}
+{#    }#}
+{##}
+    .flash-status{
+        background-color: #ffdce0;
+        border-color: rgba(27,31,35,0.15);
+        color: #86181d;
+    }
+
+    .flash-close {
+        -moz-appearance: none;
+        background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+        border: 0 none;
+        color: inherit;
+        cursor: pointer;
+        float: right;
+        margin: -16px;
+        opacity: 0.6;
+        padding: 16px;
+        text-align: center;
+    }
+
+
+
+
+    </style>
+{% endblock %}
+
+
+{% block content %}
+    <div class="status">
+{#    {% for message in get_flashed_messages() %}#}
+
+
+{#    {% endfor %}#}
+    </div>
+
+    <div class="search">
+	    <form id="CommodityForm" class="commodity-form" method="post">
+
+            <div id="js-flash-container">
+
+        </div>
+
+
+            <input type="text" class="text-input" placeholder="粘贴要爬取的网址" name="URL" required=""  autofocus="autofocus"/>
+	        <button class="btn-submit  btn btn-block btn-primary" type="button">提交</button>
+        </form>
+    <div>
+
+    <div class="result">
+	<div class="productname">
+	   <label>productname:</label>
+           <p></p>
+        </div>
+
+	<div class="description">
+	   <label>description:</label>
+           <p></p>
+    </div>
+
+	<div class="reviews">
+	   <label>reviews:</label> <a href={{ url_for('static',filename='csv/reviews.csv') }}></a>
+    </div>
+
+	<div class="qa">
+	   <label>q&a:</label> <a href={{ url_for('static',filename='csv/qa.csv') }}></a>
+    </div>
+
+    </div>
+
+{% endblock  %}
+
+
+
+
+
+{% block scripts %}
+    {{ super() }}
+       <script>
+
+          $('.btn-submit').click(function(){
+
+                var flash_start = '<div class="flash flash-full flash-status">'
+                             + '<div class="container">'
+{#                                +'<button class="flash-close js-flash-close" type="button" aria-label="Dismiss this message">'+#}
+{#                                    '<svg aria-hidden="true" class="octicon octicon-x" height="16" version="1.1" viewBox="0 0 12 16" width="12">' + '<path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"/>'+#}
+{#                                     '</svg>'#}
+{#                               + '</button>' #}
+                               +'正在爬取中,请等候......'
+                               +'</div>'
+                             +'</div>'
+
+                var flash_end = '<div class="flash flash-full flash-status">'
+                             + '<div class="container">'
+{#                                +'<button class="flash-close js-flash-close" type="button" aria-label="Dismiss this message">'+#}
+{#                                    '<svg aria-hidden="true" class="octicon octicon-x" height="16" version="1.1" viewBox="0 0 12 16" width="12">' + '<path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"/>'+#}
+{#                                     '</svg>'#}
+{#                               + '</button>' #}
+                               +'爬取已完成'
+                               +'</div>'
+                             +'</div>'
+
+
+
+                $('.status').html(flash_start);
+
+	            var URL = $("input[type='text']").val()
+ 	            var data = {
+                   data:JSON.stringify({"URL":URL}) 
+                }
+
+             
+                $.ajax({
+                    type: "post",
+                    url: "/spider",
+                    async: false,
+                    data:data,
+                    dataType: 'JSON',
+                    success: function (data, status) {
+                        if (status == "success") {
+                            $('.status').html(flash_end);
+                            $('.productname p').html(data["productname"]);
+			                $('.description p').html(data["description"]);
+                            $('.reviews a').html("点击下载");
+                            $('.qa a').html("点击下载");
+                        }
+                    },
+{#                    error: function () {#}
+{#                        alert('编辑失败');#}
+{#                    },#}
+                    complete: function () {
+                    }
+                });
+          });
+
+       </script>
+
+{% endblock %}

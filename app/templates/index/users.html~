@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block title %}Ovirt | 用户管理{% endblock %}
+
+{% block styles %}
+    {{ super() }}
+    <style>
+    
+    .commodity-form{
+      padding-top:90px;
+      padding-left:280px;
+    }
+
+    input:focus {
+      
+      outline: 1px solid #337ab7 !important;
+    }
+
+   input[type="text"], .text-input{
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: #f2f2f2;
+    border-image: none;
+    border-style: solid none none;
+    border-width: 1px medium medium;
+    margin: 1px;
+    outline: 1px solid #ccc;
+    padding: 4px 5px;
+    vertical-align: middle;
+    width: 578px;
+    border-radius:3px;
+   }
+
+   .btn-submit{
+       margin-left:20px;
+       font-size: 14px;
+       padding-bottom: 2px;
+       padding-top: 2px;
+       
+
+
+   }
+
+
+
+
+
+
+    </style>
+{% endblock %}
+
+
+{%- block content %} 
+	<form id="CommodityForm" class="commodity-form" method="post">
+
+            <input type="text" class="text-input" placeholder="粘贴要爬取的网址" name="URL" required=""  autofocus="autofocus"/>
+	    <button class="btn-submit disabled btn btn-primary" type="button">爬取</button>
+
+  
+        </form>
+
+
+
+{%- endblock content %}
+
+
+
+
+
+{% block scripts %}
+    {{ super() }}
+       <script>
+
+        </script>
+
+{% endblock %}
